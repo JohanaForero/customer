@@ -1,0 +1,128 @@
+openapi: 3.0.2
+info:
+  title: API Documentation
+  version: 1.0.0
+servers:
+  - url: http://localhost:8090/sunbelt/
+paths:
+  /api/v1/client:
+    post:
+      tags:
+        - Authentication
+      summary: Authenticate user
+      description: authenticate user in the application
+      operationId: logIn
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        200:
+          description: The user has logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        400:
+          description: Bad Request - If the resource is misspelled (badly constructed URI)
+            / If the data in the request is not correct, return INVALID_PARAMETERS.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+        401:
+          description: Unauthorized - If the API requires subscription and the client does not have it
+            / If there is a problem with the User Credentials, return INVALID_CREDENTIALS.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+        426:
+          description: Upgrade Required - If the API requires a password change due to security policies, but the current
+            credentials provided are not sufficient to proceed. The user must update their password to access the
+            requested resource, returns NEW_PASSWORD_REQUIRED.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+        503:
+          description: Service Unavailable - Use it to report the Specific Errors that the server suffers,
+            return AUTH_MANAGER_INTERNAL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+        500:
+          description: Internal Server Error - Use it as a General System Error, return INTERNAL_SERVER_ERROR.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+components:
+  schemas:
+    # Objects
+    ErrorObject:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          description: Error code
+          example: "INVALID_PARAMETERS"
+        message:
+          type: string
+          description: Error message (detailed description)
+          example: Invalid Request. Please, check the data in the request (QueryString Parameters and/or Body).
+      description: Error details
+      example:
+        code: "INVALID_PARAMETERS"
+        message: Invalid Request. Please, check the data in the request (QueryString Parameters and/or Body).
+    UserRequest:
+      required:
+        - documentType
+        - documentNumber
+      type: object
+      properties:
+        documentType:
+          type: string
+          description: tipo de documento, puede ser cedula o pasaporte
+          example: c
+        documentNumber:
+          type: string
+          description: numero de documento
+          example: 123456OP
+
+    UserResponse:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: The first name of the user
+        secondName:
+          type: string
+          description: The second name of the user
+        surname:
+          type: string
+          description: The surname of the user
+        secondSurname:
+          type: string
+          description: The second surname of the user
+        phone:
+          type: string
+          description: The phone number of the user
+        address:
+          type: string
+          description: The address of the user
+        city:
+          type: string
+          description: The city of the user
+      example:
+        firstName: "John"
+        secondName: "Doe"
+        surname: "Smith"
+        secondSurname: "Johnson"
+        phone: "123-456-7890"
+        address: "123 Main St"
+        city: "Springfield"
