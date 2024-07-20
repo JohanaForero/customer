@@ -1,5 +1,7 @@
 package com.forero.sunbelt.infraestructure.services.dao;
 
+import com.forero.sunbelt.application.exception.RepositoryException;
+import com.forero.sunbelt.domain.exception.CodeException;
 import com.forero.sunbelt.domain.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +11,7 @@ public class UserRepository {
         final String documentType = user.getDocumentType().toUpperCase();
         final String documentNumber = user.getDocumentNumber();
         if (!"C".equals(documentType) && !"P".equals(documentType)) {
-            return null;
+            throw new RepositoryException(CodeException.CUSTOMER_NOT_FOUND, null);
         }
         if ("C".equals(documentType) && "10121314".equals(documentNumber)) {
             return new UserDao(
@@ -22,6 +24,6 @@ public class UserRepository {
                     "Bogota"
             );
         }
-        return null;
+        throw new RepositoryException(CodeException.CUSTOMER_NOT_FOUND, null);
     }
 }

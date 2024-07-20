@@ -22,5 +22,8 @@ public class UserUseCase {
         if (user.getDocumentNumber() == null) {
             throw new UserUseCaseException(CodeException.INVALID_PARAMETERS, null, "documentNumber");
         }
+        if (!"C".equalsIgnoreCase(user.getDocumentType()) && !"P".equalsIgnoreCase(user.getDocumentType())) {
+            throw new UserUseCaseException(CodeException.INVALID_TYPE_DOCUMENT, null);
+        }
     }
 }

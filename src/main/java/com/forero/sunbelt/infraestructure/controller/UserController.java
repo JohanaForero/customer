@@ -23,7 +23,7 @@ public class UserController implements CustomerApi {
     private final UserMapper userMapper;
 
     @Override
-    public ResponseEntity<UserResponseDto> getCustomer(UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> getCustomer(final UserRequestDto userRequestDto) {
         log.info(LOGGER_PREFIX + "[getCustomer] Request {}", userRequestDto);
         final User user = this.userMapper.toModel(userRequestDto);
         final User userResult = this.getUserCommand.getUser(user);

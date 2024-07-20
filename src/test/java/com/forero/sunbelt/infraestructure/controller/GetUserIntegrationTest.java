@@ -79,4 +79,27 @@ class GetUserIntegrationTest extends BaseIT {
         final ErrorObjectDto actual = OBJECT_MAPPER.readValue(body, ErrorObjectDto.class);
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    void test_withRequestWithDocumentNumberInvalid_ShouldReturnExceptionCustomerNotFound() throws Exception {
+        //Given
+        final UserRequestDto userRequestDto = new UserRequestDto();
+        userRequestDto.documentNumber("10");
+        userRequestDto.documentType("C");
+
+        final ErrorObjectDto expect = new ErrorObjectDto();
+        expect.code("CUSTOMER_NOT_FOUND");
+        expect.message("Customer not found");
+
+        //When
+        final ResultActions response = this.mockMvc.perform(MockMvcRequestBuilders.post(URI.create(BASE_PATH))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(OBJECT_MAPPER.writeValueAsBytes(userRequestDto)));
+
+        //Then
+        response.andExpect(MockMvcResultMatchers.status().isNotFound());
+        final String body = response.andReturn().getResponse().getContentAsString();
+        final ErrorObjectDto actual = OBJECT_MAPPER.readValue(body, ErrorObjectDto.class);
+        Assertions.assertEquals(expect, actual);
+    }
 }
