@@ -4,11 +4,13 @@ import com.forero.sunbelt.application.exception.UserUseCaseException;
 import com.forero.sunbelt.application.service.RepositoryService;
 import com.forero.sunbelt.domain.exception.CodeException;
 import com.forero.sunbelt.domain.model.User;
-import lombok.RequiredArgsConstructor;
+import com.forero.sunbelt.infraestructure.controller.UserController;
+import lombok.extern.slf4j.Slf4j;
 
-@RequiredArgsConstructor
-public class UserUseCase {
-    private final RepositoryService repositoryService;
+@Slf4j
+public record UserUseCase(RepositoryService repositoryService) {
+    private static final String LOGGER_PREFIX = String.format("[%s] ", UserController.class.getSimpleName());
+    private static final String LOG_CHECK_USER_FIELDS = "{} [checkUserFields] Request {}";
 
     public User getUser(final User user) {
         this.checkUserFields(user);
@@ -16,13 +18,21 @@ public class UserUseCase {
     }
 
     private void checkUserFields(final User user) {
-        if (user.documentType() == null) {
+        final String documentType = user.documentType();
+        final String documentNumber = user.documentNumber();
+
+        if (documentType == null) {
+            log.info(LOG_CHECK_USER_FIELDS, LOGGER_PREFIX, documentType);
             throw new UserUseCaseException(CodeException.INVALID_PARAMETERS, null, "documentType");
         }
-        if (user.documentNumber() == null) {
+
+        if (documentNumber == null) {
+            log.info(LOG_CHECK_USER_FIELDS, LOGGER_PREFIX, documentNumber);
             throw new UserUseCaseException(CodeException.INVALID_PARAMETERS, null, "documentNumber");
         }
-        if (!"C".equalsIgnoreCase(user.documentType()) && !"P".equalsIgnoreCase(user.documentType())) {
+
+        if (!"C".equalsIgnoreCase(documentType) && !"P".equalsIgnoreCase(documentType)) {
+            log.info(LOG_CHECK_USER_FIELDS, LOGGER_PREFIX, documentType);
             throw new UserUseCaseException(CodeException.INVALID_TYPE_DOCUMENT, null);
         }
     }
