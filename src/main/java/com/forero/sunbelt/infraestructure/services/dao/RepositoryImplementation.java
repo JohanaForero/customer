@@ -17,10 +17,9 @@ public class RepositoryImplementation implements RepositoryService {
 
     @Override
     public User getUser(final User user) {
-        log.info(LOGGER_PREFIX + "[getUser] Request user");
+        log.info(LOGGER_PREFIX + "[getUser] Request {}", user);
         final UserDao userDao = this.userRepository.findByDocument(user);
-        final User userResult = this.userMapper.entityToModel(userDao);
-        log.info(LOGGER_PREFIX + "[getUser] Response user");
-        return userResult;
+        log.info(LOGGER_PREFIX + "[getUser] Response {}", userDao);
+        return this.userMapper.entityToModel(userDao);
     }
 }
