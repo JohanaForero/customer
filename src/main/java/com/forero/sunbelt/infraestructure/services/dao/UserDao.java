@@ -1,24 +1,24 @@
 package com.forero.sunbelt.infraestructure.services.dao;
 
-import lombok.Data;
+import com.forero.sunbelt.application.exception.RepositoryException;
+import com.forero.sunbelt.domain.exception.CodeException;
+import com.forero.sunbelt.domain.model.User;
+import org.springframework.stereotype.Repository;
 
-@Data
+@Repository
 public class UserDao {
-    private String firstName;
-    private String secondName;
-    private String surname;
-    private String secondSurname;
-    private String phone;
-    private String address;
-    private String city;
-
-    public UserDao(String firstName, String secondName, String surname, String secondSurname, String phone, String address, String city) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.surname = surname;
-        this.secondSurname = secondSurname;
-        this.phone = phone;
-        this.address = address;
-        this.city = city;
+    public User findByDocument(String documentNumber) {
+        if ("10121314".equals(documentNumber)) {
+            return User.builder()
+                    .firstName("Juan")
+                    .phone("1234567890")
+                    .city("Bogota")
+                    .address("Calle Falsa 123")
+                    .secondName("Carlos")
+                    .surname("Perez")
+                    .secondSurname("Gomez")
+                    .build();
+        }
+        throw new RepositoryException(CodeException.CUSTOMER_NOT_FOUND, null);
     }
 }

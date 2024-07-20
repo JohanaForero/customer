@@ -15,15 +15,15 @@ import org.springframework.stereotype.Service;
 public class RepositoryImplementation implements RepositoryService {
     private static final String LOGGER_PREFIX = String.format("[%s] ", RepositoryImplementation.class.getSimpleName());
     private final UserMapper userMapper;
-    private final UserRepository userRepository;
+    private final UserDao userDao;
 
     @Override
-    public User getUser(final User user) {
+    public User getUser(final String numeroDocumento) {
         try {
-            log.info(LOGGER_PREFIX + "[getUser] Request {}", user);
-            final UserDao userDao = this.userRepository.findByDocument(user);
-            log.info(LOGGER_PREFIX + "[getUser] Response {}", userDao);
-            return this.userMapper.entityToModel(userDao);
+            log.info(LOGGER_PREFIX + "[getUser] Request {}", numeroDocumento);
+            final User userResult = this.userDao.findByDocument(numeroDocumento);
+            log.info(LOGGER_PREFIX + "[getUser] Response {}", userResult);
+            return userResult;
         } catch (Exception exception) {
             log.info(LOGGER_PREFIX + "[getUser] User not found", exception.getMessage());
             throw new RepositoryException(CodeException.CUSTOMER_NOT_FOUND, exception);

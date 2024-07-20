@@ -12,17 +12,17 @@ public class UserUseCase {
 
     public User getUser(final User user) {
         this.checkUserFields(user);
-        return repositoryService.getUser(user);
+        return repositoryService.getUser(user.documentNumber());
     }
 
     private void checkUserFields(final User user) {
-        if (user.getDocumentType() == null) {
+        if (user.documentType() == null) {
             throw new UserUseCaseException(CodeException.INVALID_PARAMETERS, null, "documentType");
         }
-        if (user.getDocumentNumber() == null) {
+        if (user.documentNumber() == null) {
             throw new UserUseCaseException(CodeException.INVALID_PARAMETERS, null, "documentNumber");
         }
-        if (!"C".equalsIgnoreCase(user.getDocumentType()) && !"P".equalsIgnoreCase(user.getDocumentType())) {
+        if (!"C".equalsIgnoreCase(user.documentType()) && !"P".equalsIgnoreCase(user.documentType())) {
             throw new UserUseCaseException(CodeException.INVALID_TYPE_DOCUMENT, null);
         }
     }

@@ -1,18 +1,16 @@
 package com.forero.sunbelt.domain.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 
-@Getter
-@Setter
-public class User {
-    private String firstName;
-    private String secondName;
-    private String surname;
-    private String secondSurname;
-    private String phone;
-    private String address;
-    private String city;
-    private String documentType;
-    private String documentNumber;
+@Builder
+public record User(
+        String firstName,
+        String secondName,
+        String surname,
+        String secondSurname,
+        String phone,
+        String address,
+        String city,
+        String documentType,
+        String documentNumber) {
 }
