@@ -29,6 +29,7 @@
     <properties>
         <java.version>21</java.version>
         <openapi-generator.version>7.6.0</openapi-generator.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
     </properties>
     <dependencies>
         <dependency>
@@ -41,9 +42,19 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+            <version>0.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-            <version>1.5.5.Final</version>
+            <version>${mapstruct.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openapitools</groupId>
@@ -77,9 +88,10 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/static/open-api.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>com.forero.sunbelt.apifirst.openapi.api</apiPackage>
-                            <invokerPackage>com.forero.sunbelt.apifirst.openapi.invoker</invokerPackage>
-                            <modelPackage>com.forero.sunbelt.apifirst.openapi.model</modelPackage>
+                            <output>${project.build.directory}/generated-sources/openapi</output>
+                            <apiPackage>com.forero.sunbelt.openapi.api</apiPackage>
+                            <invokerPackage>com.forero.sunbelt.openapi.api.invoker</invokerPackage>
+                            <modelPackage>com.forero.sunbelt.openapi.api.model</modelPackage>
                             <modelNameSuffix>Dto</modelNameSuffix>
                             <configOptions>
                                 <annotationLibrary>none</annotationLibrary>
@@ -99,15 +111,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

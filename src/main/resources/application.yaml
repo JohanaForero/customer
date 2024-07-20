@@ -1,0 +1,14 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: sunbelt
+
+springdoc:
+  swagger-ui:
+    url: /open-api.yaml
+openapi:
+  aPIDocumentation:
+    base-path: /sunbelt
+
