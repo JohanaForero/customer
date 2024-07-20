@@ -15,11 +15,11 @@ public class UserRepository {
             return new UserDao(
                     "Juan",
                     "Carlos",
-                    "Pérez",
-                    "Gómez",
+                    "Perez",
+                    "Gomez",
                     "1234567890",
                     "Calle Falsa 123",
-                    "Bogotá"
+                    "Bogota"
             );
         }
         return null;
