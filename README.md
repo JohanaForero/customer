@@ -3,7 +3,7 @@
 ## requirements:
 
 java 21
-docker
+maven 3.9.*
 
 ## Download the Project
 
@@ -19,30 +19,18 @@ git clone https://github.com/JohanaForero/customer/tree/develop
 
 ## Download Dependencies
 
-Once the project is open in IntelliJ IDEA: `./mvn install`
+Once the project is open in IntelliJ IDEA: `mvn clean install`
 
 ### Execute the Project
 
-To run the project, you must locate yourself in the main class and run the application: `spring-boot:run`
+To run the project, you must locate yourself in the main class and run the application: `mvn spring-boot:run`
 Navigate to the following URL to access Swagger UI:
 swagger at http://localhost:8090/swagger-ui/index.html
 
-### postman
+### Deployment on AWS
 
-Collection postman at the root of this project, enter the postman directory, file with the name
-`Parking.postman_collection.json`
+This project can be deployed on AWS using an AWS CloudFormation template. The following describes the steps to use the
+template to create the necessary resources and deploy the application.
+`templates.template.json`
 
-### get customer
-
-get customer with:
-
-```
-curl -X 'POST' \
-  'http://localhost:8090/sunbelt/customer' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "documentType": "c",
-  "documentNumber": "10121314"
-}'
-```
+Evidence of deployment in AWS is attached ![img.png](img.png)
