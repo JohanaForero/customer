@@ -46,3 +46,11 @@ curl -X 'POST' \
   "documentNumber": "10121314"
 }'
 ```
+
+### Deployment on AWS
+
+This project can be deployed on AWS using an AWS CloudFormation template. The following describes the steps to use the
+template to create the necessary resources and deploy the application.
+`templates.template.json`
+
+Evidence of deployment in AWS is attached ![img.png](img.png)
