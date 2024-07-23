@@ -11,6 +11,6 @@ public record User(
         String phone,
         String address,
         String city,
-        String documentType,
+        DocumentType documentType,
         String documentNumber) {
 }
