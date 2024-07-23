@@ -6,6 +6,6 @@ ENV JAVA_OPTS=" -Duser.timezone=America/Bogota"
 
 WORKDIR /app
 
-COPY target/sunbelt*.jar /app/sunbelt.jar
+COPY target/sunbelt-0.0.1-SNAPSHOT.jar /app/sunbelt.jar
 
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS  -jar /app/sunbelt.jar" ]
