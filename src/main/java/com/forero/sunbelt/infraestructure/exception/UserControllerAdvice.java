@@ -42,7 +42,7 @@ public class UserControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorObjectDto> handlerException(final Exception exception) {
-        log.error(LOGGER_PREFIX + "[handlerException] Unhandled exception", exception);
+        log.error(LOGGER_PREFIX + "[handlerException] Unhandled", exception);
         final CodeException codeException = CodeException.INTERNAL_SERVER_ERROR;
 
         final ErrorObjectDto errorObjectDto = new ErrorObjectDto();

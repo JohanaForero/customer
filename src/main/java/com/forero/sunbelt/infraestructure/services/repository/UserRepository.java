@@ -1,5 +1,6 @@
-package com.forero.sunbelt.infraestructure.services.dao;
+package com.forero.sunbelt.infraestructure.services.repository;
 
+import com.forero.sunbelt.infraestructure.services.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

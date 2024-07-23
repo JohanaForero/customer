@@ -1,4 +1,4 @@
-package com.forero.sunbelt.infraestructure.services.dao;
+package com.forero.sunbelt.infraestructure.services.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

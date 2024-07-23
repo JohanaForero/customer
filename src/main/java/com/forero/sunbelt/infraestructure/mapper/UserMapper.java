@@ -2,7 +2,7 @@ package com.forero.sunbelt.infraestructure.mapper;
 
 import com.forero.sunbelt.domain.model.DocumentType;
 import com.forero.sunbelt.domain.model.User;
-import com.forero.sunbelt.infraestructure.services.dao.UserEntity;
+import com.forero.sunbelt.infraestructure.services.entity.UserEntity;
 import com.forero.sunbelt.openapi.api.model.UserRequestDto;
 import com.forero.sunbelt.openapi.api.model.UserResponseDto;
 import org.mapstruct.Mapper;
