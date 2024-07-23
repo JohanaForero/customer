@@ -3,7 +3,6 @@
 ## requirements:
 
 java 21
-docker
 
 ## Download the Project
 
@@ -28,11 +27,6 @@ Navigate to the following URL to access Swagger UI:
 swagger at http://localhost:8090/swagger-ui/index.html
 
 ### postman
-
-Collection postman at the root of this project, enter the postman directory, file with the name
-`Parking.postman_collection.json`
-
-### get customer
 
 get customer with:
 
