@@ -3,6 +3,7 @@
 ## requirements:
 
 java 21
+maven 3.9.*
 
 ## Download the Project
 
@@ -18,28 +19,13 @@ git clone https://github.com/JohanaForero/customer/tree/develop
 
 ## Download Dependencies
 
-Once the project is open in IntelliJ IDEA: `./mvn install`
+Once the project is open in IntelliJ IDEA: `mvn clean install`
 
 ### Execute the Project
 
-To run the project, you must locate yourself in the main class and run the application: `spring-boot:run`
+To run the project, you must locate yourself in the main class and run the application: `mvn spring-boot:run`
 Navigate to the following URL to access Swagger UI:
 swagger at http://localhost:8090/swagger-ui/index.html
-
-### postman
-
-get customer with:
-
-```
-curl -X 'POST' \
-  'http://localhost:8090/sunbelt/customer' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "documentType": "c",
-  "documentNumber": "10121314"
-}'
-```
 
 ### Deployment on AWS
 
