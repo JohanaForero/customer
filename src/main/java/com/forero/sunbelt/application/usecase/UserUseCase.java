@@ -21,28 +21,14 @@ public record UserUseCase(RepositoryService repositoryService) {
     private void checkUserFields(final User user) {
         final DocumentType documentType = user.documentType();
         final String documentNumber = user.documentNumber();
-
-        validateDocumentType(documentType);
-
-        if (documentNumber == null) {
-            log.info(LOG_CHECK_USER_FIELDS, LOGGER_PREFIX, null);
-            throw new UserUseCaseException(CodeException.INVALID_PARAMETERS, null, "documentNumber");
-        }
-    }
-
-    private void validateDocumentType(final DocumentType documentType) {
         if (documentType == null) {
             log.info(LOG_CHECK_USER_FIELDS, LOGGER_PREFIX, "documentType");
             throw new UserUseCaseException(CodeException.INVALID_PARAMETERS, null, "documentType");
         }
 
-        if (!isValidDocumentType(documentType)) {
-            log.info(LOG_CHECK_USER_FIELDS, LOGGER_PREFIX, documentType);
-            throw new UserUseCaseException(CodeException.INVALID_TYPE_DOCUMENT, null);
+        if (documentNumber == null) {
+            log.info(LOG_CHECK_USER_FIELDS, LOGGER_PREFIX, null);
+            throw new UserUseCaseException(CodeException.INVALID_PARAMETERS, null, "documentNumber");
         }
-    }
-
-    private boolean isValidDocumentType(final DocumentType documentType) {
-        return documentType == DocumentType.C || documentType == DocumentType.P;
     }
 }
