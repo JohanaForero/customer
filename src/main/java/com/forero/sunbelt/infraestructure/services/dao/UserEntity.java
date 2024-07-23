@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +24,11 @@ public class UserEntity {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "address")
-    private String address;
-
     @Column(name = "city")
     private String city;
+
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "second_name")
     private String secondName;
@@ -39,6 +39,6 @@ public class UserEntity {
     @Column(name = "second_surname")
     private String secondSurname;
 
-    @Column(name = "documentNumber")
+    @Column(name = "document_number")
     private String documentNumber;
 }

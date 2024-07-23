@@ -28,7 +28,7 @@ public record UserUseCase(RepositoryService repositoryService) {
         }
 
         if (documentNumber == null) {
-            log.info(LOG_CHECK_USER_FIELDS, LOGGER_PREFIX, documentNumber);
+            log.info(LOG_CHECK_USER_FIELDS, LOGGER_PREFIX, null);
             throw new UserUseCaseException(CodeException.INVALID_PARAMETERS, null, "documentNumber");
         }
 
@@ -41,5 +41,4 @@ public record UserUseCase(RepositoryService repositoryService) {
     private boolean isValidDocumentType(DocumentType documentType) {
         return documentType == DocumentType.C || documentType == DocumentType.P;
     }
-
 }

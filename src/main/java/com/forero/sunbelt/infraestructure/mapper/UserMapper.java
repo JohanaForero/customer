@@ -22,8 +22,6 @@ public interface UserMapper {
     @Mapping(target = "documentType", source = "documentType", qualifiedByName = "mapStringToDocumentType")
     User toModel(UserRequestDto userRequestDto);
 
-    //    @Mapping(target = "documentType", ignore = true)
-//    @Mapping(target = "documentNumber", ignore = true)
     UserResponseDto toDto(User user);
 
     @Mapping(target = "city", source = "city")
@@ -38,13 +36,9 @@ public interface UserMapper {
 
     @Named("mapStringToDocumentType")
     default DocumentType mapStringToDocumentType(String documentType) {
-        switch (documentType.toUpperCase()) {
-            case "C":
-                return DocumentType.C;
-            case "P":
-                return DocumentType.P;
-            default:
-                throw new IllegalArgumentException("Unknown document type: " + documentType);
+        if (documentType == null) {
+            return null;
         }
+        return DocumentType.valueOf(documentType.toUpperCase());
     }
 }
