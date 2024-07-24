@@ -1,7 +1,5 @@
 # Sunbelt
 
-![img_2.png](img_2.png)
-
 ## requirements:
 
 java 21
