@@ -1,6 +1,7 @@
 package com.forero.sunbelt.infraestructure.exception;
 
 import com.forero.sunbelt.application.exception.CoreException;
+import com.forero.sunbelt.application.exception.DocumentTypeException;
 import com.forero.sunbelt.application.exception.RepositoryException;
 import com.forero.sunbelt.application.exception.UserUseCaseException;
 import com.forero.sunbelt.domain.exception.CodeException;
@@ -24,6 +25,7 @@ public class UserControllerAdvice {
     private static final Map<CodeException, HttpStatus> HTTP_STATUS_BY_CODE_EXCEPTION = Map.ofEntries(
             new AbstractMap.SimpleEntry<>(CodeException.INVALID_PARAMETERS, HttpStatus.BAD_REQUEST),
             new AbstractMap.SimpleEntry<>(CodeException.CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND),
+            new AbstractMap.SimpleEntry<>(CodeException.INVALID_TYPE_DOCUMENT, HttpStatus.BAD_REQUEST),
             new AbstractMap.SimpleEntry<>(CodeException.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR)
     );
 
@@ -42,7 +44,7 @@ public class UserControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorObjectDto> handlerException(final Exception exception) {
-        log.error(LOGGER_PREFIX + "[handlerException] Unhandled exception", exception);
+        log.error(LOGGER_PREFIX + "[handlerException] Unhandled", exception);
         final CodeException codeException = CodeException.INTERNAL_SERVER_ERROR;
 
         final ErrorObjectDto errorObjectDto = new ErrorObjectDto();
@@ -65,6 +67,17 @@ public class UserControllerAdvice {
 
         final HttpStatus httpStatus = HTTP_STATUS_BY_CODE_EXCEPTION.getOrDefault(codeException, HttpStatus.NOT_EXTENDED);
         return new ResponseEntity<>(errorObjectDto, httpStatus);
+    }
+
+    @ExceptionHandler(DocumentTypeException.class)
+    public ResponseEntity<ErrorObjectDto> handleRepositoryException(DocumentTypeException ex) {
+        final CodeException codeException = ex.getCodeException(); // Obtén el código de excepción de RepositoryException
+        HttpStatus status = HTTP_STATUS_BY_CODE_EXCEPTION.getOrDefault(codeException, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        ErrorObjectDto error = new ErrorObjectDto();
+        error.setCode(codeException.name());
+        error.setMessage(ex.getMessage());
+        return new ResponseEntity<>(error, status);
     }
 
     @ExceptionHandler(UserUseCaseException.class)

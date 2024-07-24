@@ -73,12 +73,12 @@ components:
       properties:
         documentType:
           type: string
-          description: Type of document, can be ID or passport
-          example: c
+          description: Type of document, option C or P
+          example: P
         documentNumber:
           type: string
           description: Document number
-          example: 123456OP
+          example: A23456OP
     UserResponse:
       type: object
       properties:
